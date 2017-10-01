@@ -10,11 +10,18 @@ public class Chopsticks {
 
 	}
 
-	public synchronized void take(int num) {
-
+	public synchronized boolean take(int num) {
+		if(inUse){
+			
+		System.out.println("Phil " + num + " cannot take chop stick " + number);
+		return false;
+		
+		}else{
+			
 		inUse = true;
 		System.out.println("Chopstick " + number + " in use by philosopher " + num);
-
+		return true;
+		}
 	}
 
 	public synchronized void letGo(int num) {

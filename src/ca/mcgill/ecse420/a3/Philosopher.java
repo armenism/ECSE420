@@ -23,14 +23,10 @@ public class Philosopher extends Thread {
 	public void tryToEat() {
 
 		// Try to take both chopsticks
-		if (!rightChop.inUse) {
-			if (!leftChop.inUse) {
-
-				leftChop.take(individualNumber);
-				rightChop.take(individualNumber);
+		if (rightChop.take(individualNumber)) {
+			if (leftChop.take(individualNumber)) {
 
 				state = true;
-
 				System.out.println("Philosopher " + individualNumber + " is eating");
 
 				// Simulates philosopher eating
@@ -43,6 +39,9 @@ public class Philosopher extends Thread {
 
 				leftChop.letGo(individualNumber);
 				rightChop.letGo(individualNumber);
+			} else {//Let go of fork if cannot grab both forks
+				rightChop.letGo(individualNumber);
+
 			}
 
 		}
