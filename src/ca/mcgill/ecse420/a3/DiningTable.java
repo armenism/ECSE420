@@ -1,11 +1,32 @@
 package ca.mcgill.ecse420.a3;
 
+import java.util.Scanner;
+
 public class DiningTable {
+
+	private static Scanner scanner;
 
 	public static void main(String[] args) {
 
+		scanner = new Scanner(System.in);
+
+		int num = 0;
+		boolean error;
+
+		// Adapt to N philosophers (ask user for # of philosophers)
+		do {
+			try {
+				System.out.println("Select number Philosophers");
+				num = scanner.nextInt();
+				error = false;
+			} catch (Exception e) {
+				error = true;
+				System.out.println("ERROR: Please enter an integer value");
+			}
+		} while (error);
+
 		// Dictate the number of philosophers & chop sticks
-		final int CHOPSTICKS = 30;
+		final int CHOPSTICKS = num;
 		final int PHILOSOPHERS = CHOPSTICKS;
 
 		Philosopher[] philosophers = new Philosopher[PHILOSOPHERS];
