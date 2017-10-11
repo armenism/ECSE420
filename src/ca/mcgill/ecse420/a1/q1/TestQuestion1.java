@@ -1,13 +1,12 @@
-package ca.mcgill.ecse420.a1;
+package ca.mcgill.ecse420.a1.q1;
 
 import static org.junit.Assert.*;
-
 import org.junit.Test;
 
 public class TestQuestion1 {
-	
+
 	Question1 q1;
-	
+
 	@Test
 	public void testSequentialMultiplyMatrix2000x2000() {
 
@@ -21,7 +20,7 @@ public class TestQuestion1 {
 
 		System.out.println("\tSequential method time: " + (endTime - startTime));
 	}
-	
+
 	@Test
 	public void testParallelMultiplyMatrix2000x2000_1Thread() {
 
@@ -35,7 +34,7 @@ public class TestQuestion1 {
 
 		System.out.println("\tParallel method time: " + (endTime - startTime));
 	}
-	
+
 	@Test
 	public void testParallelMultiplyMatrix2000x2000_2Threads() {
 
@@ -49,7 +48,7 @@ public class TestQuestion1 {
 
 		System.out.println("\tParallel method time: " + (endTime - startTime));
 	}
-	
+
 	@Test
 	public void testParallelMultiplyMatrix2000x2000_5Threads() {
 
@@ -63,7 +62,7 @@ public class TestQuestion1 {
 
 		System.out.println("\tParallel method time: " + (endTime - startTime));
 	}
-	
+
 	@Test
 	public void testParallelMultiplyMatrix2000x2000_10Threads() {
 
@@ -77,7 +76,7 @@ public class TestQuestion1 {
 
 		System.out.println("\tParallel method time: " + (endTime - startTime));
 	}
-	
+
 	@Test
 	public void testParallelMultiplyMatrix2000x2000_25Threads() {
 
@@ -91,7 +90,7 @@ public class TestQuestion1 {
 
 		System.out.println("\tParallel method time: " + (endTime - startTime));
 	}
-	
+
 	@Test
 	public void testParallelMultiplyMatrix2000x2000_50Threads() {
 
@@ -105,7 +104,7 @@ public class TestQuestion1 {
 
 		System.out.println("\tParallel method time: " + (endTime - startTime));
 	}
-	
+
 	@Test
 	public void testParallelMultiplyMatrix2000x2000_100Threads() {
 
@@ -119,7 +118,7 @@ public class TestQuestion1 {
 
 		System.out.println("\tParallel method time: " + (endTime - startTime));
 	}
-	
+
 	@Test
 	public void testParallelMultiplyMatrix2000x2000_250Threads() {
 
@@ -161,7 +160,7 @@ public class TestQuestion1 {
 
 		System.out.println("\tParallel method time: " + (endTime - startTime));
 	}
-	
+
 	@Test
 	public void testParallelMultiplyMatrix2000x2000_1500Threads() {
 
@@ -175,7 +174,7 @@ public class TestQuestion1 {
 
 		System.out.println("\tParallel method time: " + (endTime - startTime));
 	}
-	
+
 	@Test
 	public void testParallelMultiplyMatrix2000x2000_maximumThreads() {
 
@@ -189,5 +188,5 @@ public class TestQuestion1 {
 
 		System.out.println("\tParallel method time: " + (endTime - startTime));
 	}
-	
+
 }

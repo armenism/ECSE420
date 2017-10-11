@@ -1,4 +1,4 @@
-package ca.mcgill.ecse420.a1;
+package ca.mcgill.ecse420.a1.q1;
 
 import java.util.Random;
 import java.util.concurrent.*;
