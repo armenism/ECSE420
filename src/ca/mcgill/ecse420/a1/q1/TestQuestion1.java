@@ -1,6 +1,5 @@
 package ca.mcgill.ecse420.a1.q1;
 
-import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class TestQuestion1 {
