@@ -18,7 +18,6 @@ public class Philosopherp3 extends Thread {
 
 	private int index; // unique philosopher index on table
 	private int count; // Check for starvation
-	private boolean state; // true if eating, false if thinking
 	
 
 	/**
@@ -32,7 +31,6 @@ public class Philosopherp3 extends Thread {
 	 */
 	public Philosopherp3(int number, Chopsticksp3 leftChop, Chopsticksp3 rightChop) {
 
-		state = false;
 		index = number;
 		count = 0;
 
@@ -57,16 +55,15 @@ public class Philosopherp3 extends Thread {
 		while (!rightChop.take(index))
 			thinking();
 		
-		state = true;
 		count++;
 
-		System.out.println("Phil " + (index + 1) + " is eating. Count: " + count);
+		System.out.println("Phil " + index + " is eating. Count: " + count);
 
 		try { // Simulates philosopher eating
 			Thread.sleep(chew);
 		} catch (InterruptedException ex) {
 
-			System.out.println("ERROR: Thread " + (index + 1) + " could not execute sleep");
+			System.out.println("ERROR: Thread " + index + " could not execute sleep");
 		}
 
 		leftChop.letGo(index); // release both chop sticks
@@ -80,15 +77,14 @@ public class Philosopherp3 extends Thread {
 	 */
 	public void thinking() {
 		int think = sleep();
-		state = false;
-		System.out.println("Phil " + (index + 1) + " is thinking. Count: " + count);
+		System.out.println("Phil " + index + " is thinking. Count: " + count);
 
 		// Simulates philosopher thinking
 		try {
 			Thread.sleep(think);
 		} catch (InterruptedException ex) {
 
-			System.out.println("ERROR: Thread " + (index + 1) + " could not execute sleep");
+			System.out.println("ERROR: Thread " + index + " could not execute sleep");
 		}
 
 	}

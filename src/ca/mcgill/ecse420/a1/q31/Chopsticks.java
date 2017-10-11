@@ -11,8 +11,8 @@ package ca.mcgill.ecse420.a1.q31;
 
 public class Chopsticks {
 
-	public boolean inUse; // True if in use, false otherwise
-	public int number; // The chop stick index
+	private boolean inUse; 
+	public int chopIndex; // The chop stick index
 
 	/**
 	 * 
@@ -20,7 +20,7 @@ public class Chopsticks {
 	 *            The unique index of the chop stick on the table
 	 */
 	public Chopsticks(int num) {
-		number = num;
+		chopIndex = num;
 		inUse = false;
 
 	}
@@ -30,20 +30,20 @@ public class Chopsticks {
 	 * that no two philosophers take the same chop stick at the same time.
 	 * 
 	 * @param num
-	 *            The index of the philosopher attempting to take the chopstick
+	 *            The index of the philosopher attempting to take the chop stick
 	 * @return true if chop stick is successfully taken, or false if chop stick
 	 *         is in use.
 	 */
-	public synchronized boolean take(int num) {
+	public synchronized boolean take(int philIndex) {
 		if (inUse) { // Failed to take chop stick
 
-			System.out.println("Phil " + (num+1) + " could not take chop stick " + (number+1));
+			System.out.println("Phil " + (philIndex+1) + " could not take chop stick " + (chopIndex+1));
 			return (!inUse);
 
-		} else {
+		} else { 
 
 			inUse = true;
-			System.out.println("Chopstick " + (number+1) + " in use by phil " + (num+1));
+			System.out.println("Chopstick " + (chopIndex+1) + " in use by phil " + (philIndex+1));
 			return inUse;
 		}
 	}
@@ -55,10 +55,10 @@ public class Chopsticks {
 	 * @param num
 	 *            The index of the philosopher releasing the chop stick
 	 */
-	public synchronized void letGo(int num) {
+	public synchronized void letGo(int philIndex) {
 
 		inUse = false;
-		System.out.println("Chopstick " + (number+1) + " released by phil " + (num+1));
+		System.out.println("Chopstick " + (chopIndex+1) + " released by phil " + (philIndex+1));
 
 	}
 

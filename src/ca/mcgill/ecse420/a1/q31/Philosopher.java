@@ -2,10 +2,6 @@
  * @author Karim El-Baba, ID: 260582332
  * @author Armen Stepanians 
  * 
- * This class is used to simulate the philosophers around the dining table.
- * Philosophers have 2 states, eating & thinking. The eating & thinking methods 
- * are not written in a way to prevent deadlocks nor starvation. Each philosopher
- * eats or thinks for a random number of ms.
  **/
 
 package ca.mcgill.ecse420.a1.q31;
@@ -17,9 +13,8 @@ public class Philosopher extends Thread {
 	private Chopsticks rightChop;
 	private Chopsticks leftChop;
 
-	private int index; // unique philosopher index on table
+	private int philIndex;
 	private int count; // Check for starvation
-	private boolean state; // true if eating, false if thinking
 
 	private int sleep;
 
@@ -32,14 +27,14 @@ public class Philosopher extends Thread {
 	 * @param rightChop
 	 *            The instance of the chop stick to the right of the philosopher
 	 */
-	public Philosopher(int number, Chopsticks leftChop, Chopsticks rightChop) {
+	public Philosopher(int philIndex, Chopsticks leftChop, Chopsticks rightChop) {
 
-		state = false;
-		index = number;
-		count = 0;
+		this.philIndex = philIndex + 1;
 
 		this.rightChop = rightChop;
 		this.leftChop = leftChop;
+
+		count = 0;
 
 	}
 
@@ -51,43 +46,42 @@ public class Philosopher extends Thread {
 
 		sleep = sleep();
 
-		if (rightChop.take(index)) { // Try to take both chop sticks
-			if (leftChop.take(index)) {
+		if (rightChop.take(philIndex)) { // Try to take both chop sticks
+			if (leftChop.take(philIndex)) {
 
-				state = true;
 				count++;
 
-				System.out.println("Phil " + (index+1) + " is eating. Count: " + count);
+				System.out.println("Phil " + philIndex + " is eating. Count: " + count);
 
 				try { // Simulates philosopher eating
 					Thread.sleep(sleep);
 				} catch (InterruptedException ex) {
 
-					System.out.println("ERROR: Thread " + (index+1) + " could not execute sleep");
+					System.out.println("ERROR: Thread " + philIndex + " could not execute sleep");
 				}
 
-				leftChop.letGo(index); // release both chopsticks
-				rightChop.letGo(index);
+				leftChop.letGo(philIndex); // release both chop sticks
+				rightChop.letGo(philIndex);
 			}
 		}
 
 	}
 
 	/**
-	 * This method is used to simulate the philosohper thinking by sleeping the
+	 * This method is used to simulate the philosopher thinking by sleeping the
 	 * thread for a random number of hours the thread for a random number of ms
 	 */
 	public void thinking() {
 		sleep = sleep();
-		state = false;
-		System.out.println("Phil " + (index+1) + " is thinking. Count: " + count);
+
+		System.out.println("Phil " + philIndex + " is thinking. Count: " + count);
 
 		// Simulates philosopher thinking
 		try {
 			Thread.sleep(sleep);
 		} catch (InterruptedException ex) {
 
-			System.out.println("ERROR: Thread " + (index+1) + " could not execute sleep");
+			System.out.println("ERROR: Thread " + philIndex + " could not execute sleep");
 		}
 
 	}

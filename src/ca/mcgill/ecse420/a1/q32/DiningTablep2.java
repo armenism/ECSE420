@@ -17,32 +17,32 @@ public class DiningTablep2 {
 		// Number of chop sticks is always equal to number of philosophers
 		final int CHOPSTICKS = 5;
 		final int PHILOSOPHERS = CHOPSTICKS;
-		final int FINAL_PHILOSOPHER = PHILOSOPHERS - 1;
+		final int LAST_PHILOSOPHER = PHILOSOPHERS - 1;
 
 		Philosopherp2[] philosophers = new Philosopherp2[PHILOSOPHERS];
 		Chopsticksp2[] chopsticks = new Chopsticksp2[CHOPSTICKS];
 
 		for (int i = 0; i < CHOPSTICKS; i++) { // Initialize chop stick
-												// instances
 
 			chopsticks[i] = new Chopsticksp2(i);
 
 		}
 
-		for (int i = 0; i < PHILOSOPHERS - 1; i++) { // Initialize
-														// philosopher
-														// instances
+		for (int i = 0; i < LAST_PHILOSOPHER; i++) { // Initialize philosopher
 
 			philosophers[i] = new Philosopherp2(i, chopsticks[i], chopsticks[i + 1]);
 
 		}
 
-		// Flip left and right chop sticks for final philosopher so that the
-		// smallest index chop stick is checked first
-		philosophers[FINAL_PHILOSOPHER] = new Philosopherp2(FINAL_PHILOSOPHER, chopsticks[0],
-				chopsticks[FINAL_PHILOSOPHER]);
+		/*
+		 * Flip left & right chop sticks for LAST philosopher so the smallest
+		 * index chop stick is checked first
+		 */
+		philosophers[LAST_PHILOSOPHER] = new Philosopherp2(LAST_PHILOSOPHER, chopsticks[0],
+				chopsticks[LAST_PHILOSOPHER]);
 
-		System.out.println("STARTING PHILOSOPHERS");
+		System.out.println("*************QUESTION 3.2 - STARTING PHILOSOPHERS*****************");
+		
 		for (int i = 0; i < PHILOSOPHERS; i++) { // Start philosopher threads
 
 			Thread t = new Thread(philosophers[i]);

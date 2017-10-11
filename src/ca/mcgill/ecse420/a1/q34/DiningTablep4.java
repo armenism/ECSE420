@@ -8,14 +8,21 @@
  * except the last one, the left chop stick.
  * 
  **/
-package ca.mcgill.ecse420.a1.q33;
+package ca.mcgill.ecse420.a1.q34;
 
-public class DiningTablep3 {
+import ca.mcgill.ecse420.a1.q33.*;
+import java.util.Scanner;
+
+public class DiningTablep4 {
 
 	public static void main(String[] args) {
 
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("Please enter the number of philosopher/chop sticks for this simulation: \nNumber: ");
+		
 		// Number of chop sticks is always equal to number of philosophers
-		final int CHOPSTICKS = 5;
+		final int CHOPSTICKS = sc.nextInt();
 		final int PHILOSOPHERS = CHOPSTICKS;
 		final int LAST_PHILOSOPHER = PHILOSOPHERS - 1;
 
