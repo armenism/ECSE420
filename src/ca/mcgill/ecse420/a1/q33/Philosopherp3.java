@@ -1,10 +1,10 @@
 /**
  * @author Karim El-Baba, ID: 260582332
  * @author Armen Stepanians ID: 260586139
- * 
+ * <p>
  * This class is used to simulate the philosophers around the dining table.
  * Each philosopher waits on the lowest index chopstick first, then the next
- * chop tick.This prevents deadlocks but may NOT prevent starvation. 
+ * chop tick.This prevents deadlocks but may NOT prevent starvation.
  **/
 
 package ca.mcgill.ecse420.a1.q33;
@@ -18,10 +18,10 @@ public class Philosopherp3 extends Thread {
 
 	private int index; // unique philosopher index on table
 	private int count; // Check for starvation
-	
+
 
 	/**
-	 * 
+	 *
 	 * @param number
 	 *            The unique index of the philosopher on the table
 	 * @param leftChop
@@ -54,7 +54,7 @@ public class Philosopherp3 extends Thread {
 		// Wait until next chop stick is available
 		while (!rightChop.take(index))
 			thinking();
-		
+
 		count++;
 
 		System.out.println("Phil " + index + " is eating. Count: " + count);

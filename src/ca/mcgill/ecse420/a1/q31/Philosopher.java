@@ -1,7 +1,6 @@
 /**
  * @author Karim El-Baba, ID: 260582332
- * @author Armen Stepanians 
- * 
+ * @author Armen Stepanians, ID: 260586139
  **/
 
 package ca.mcgill.ecse420.a1.q31;
@@ -19,13 +18,9 @@ public class Philosopher extends Thread {
 	private int sleep;
 
 	/**
-	 * 
-	 * @param number
-	 *            The unique index of the philosopher on the table
-	 * @param leftChop
-	 *            The instance of the chop stick to the left of the philosopher
-	 * @param rightChop
-	 *            The instance of the chop stick to the right of the philosopher
+	 * @param philIndex The unique index of the philosopher on the table
+	 * @param leftChop  The instance of the chop stick to the left of the philosopher
+	 * @param rightChop The instance of the chop stick to the right of the philosopher
 	 */
 	public Philosopher(int philIndex, Chopsticks leftChop, Chopsticks rightChop) {
 

@@ -1,12 +1,12 @@
 /**
  * @author Karim El-Baba, ID: 260582332
- * @author Armen Stepanians 
- * 
+ * @author Armen Stepanians, ID: 260586139
+ * <p>
  * This is the class containing the main method for question 3.1
  * The class uses 5 Philosopherp3 and chop stick instances to simulate
  * the dining philosopher problem. No 2 philosophers may hold the same
  * chop stick at the same time. However, deadlock and starvation are
- * NOT accounted for. 
+ * NOT accounted for.
  **/
 package ca.mcgill.ecse420.a1.q31;
 

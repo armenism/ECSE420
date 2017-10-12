@@ -1,10 +1,10 @@
 /**
  * @author Karim El-Baba, ID: 260582332
- * @author Armen Stepanians 
- * 
+ * @author Armen Stepanians, ID: 260586139
+ * <p>
  * This class is used to simulate the philosophers around the dining table.
  * Each philosopher waits on the lowest index chopstick first, then the next
- * chop tick.This prevents deadlocks but may NOT prevent starvation. 
+ * chop tick.This prevents deadlocks but may NOT prevent starvation.
  **/
 
 package ca.mcgill.ecse420.a1.q32;
@@ -20,7 +20,7 @@ public class Philosopherp2 extends Thread {
 	private int count; // Check for starvation
 
 	/**
-	 * 
+	 *
 	 * @param number
 	 *            The unique index of the philosopher on the table
 	 * @param leftChop
