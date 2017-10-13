@@ -2,19 +2,19 @@ package ca.mcgill.ecse420.a1.q1;
 
 import org.junit.Test;
 
-public class TestQuestion1 {
+public class TestQuestion1Part4 {
 
-	Question1 q1;
+	Question1 q1p4;
 
 	@Test
 	public void testSequentialMultiplyMatrix2000x2000() {
 
 		System.out.println("\n" + Thread.currentThread().getStackTrace()[1] + ":");
 
-		q1 = new Question1(2000, 1);
+		q1p4 = new Question1(2000, 1);
 
 		long startTime = System.currentTimeMillis();
-		Question1.sequentialMultiplyMatrix(q1.a, q1.b);
+		Question1.sequentialMultiplyMatrix(q1p4.a, q1p4.b);
 		long endTime = System.currentTimeMillis();
 
 		System.out.println("\tSequential method time: " + (endTime - startTime));
@@ -25,10 +25,10 @@ public class TestQuestion1 {
 
 		System.out.println("\n" + Thread.currentThread().getStackTrace()[1] + ":");
 
-		q1 = new Question1(2000, 1);
+		q1p4 = new Question1(2000, 1);
 
 		long startTime = System.currentTimeMillis();
-		Question1.parallelMultiplyMatrix(q1.a, q1.b);
+		Question1.parallelMultiplyMatrix(q1p4.a, q1p4.b);
 		long endTime = System.currentTimeMillis();
 
 		System.out.println("\tParallel method time: " + (endTime - startTime));
@@ -39,10 +39,10 @@ public class TestQuestion1 {
 
 		System.out.println("\n" + Thread.currentThread().getStackTrace()[1] + ":");
 
-		q1 = new Question1(2000, 2);
+		q1p4 = new Question1(2000, 2);
 
 		long startTime = System.currentTimeMillis();
-		Question1.parallelMultiplyMatrix(q1.a, q1.b);
+		Question1.parallelMultiplyMatrix(q1p4.a, q1p4.b);
 		long endTime = System.currentTimeMillis();
 
 		System.out.println("\tParallel method time: " + (endTime - startTime));
@@ -53,10 +53,10 @@ public class TestQuestion1 {
 
 		System.out.println("\n" + Thread.currentThread().getStackTrace()[1] + ":");
 
-		q1 = new Question1(2000, 5);
+		q1p4 = new Question1(2000, 5);
 
 		long startTime = System.currentTimeMillis();
-		Question1.parallelMultiplyMatrix(q1.a, q1.b);
+		Question1.parallelMultiplyMatrix(q1p4.a, q1p4.b);
 		long endTime = System.currentTimeMillis();
 
 		System.out.println("\tParallel method time: " + (endTime - startTime));
@@ -67,10 +67,10 @@ public class TestQuestion1 {
 
 		System.out.println("\n" + Thread.currentThread().getStackTrace()[1] + ":");
 
-		q1 = new Question1(2000, 10);
+		q1p4 = new Question1(2000, 10);
 
 		long startTime = System.currentTimeMillis();
-		Question1.parallelMultiplyMatrix(q1.a, q1.b);
+		Question1.parallelMultiplyMatrix(q1p4.a, q1p4.b);
 		long endTime = System.currentTimeMillis();
 
 		System.out.println("\tParallel method time: " + (endTime - startTime));
@@ -81,10 +81,10 @@ public class TestQuestion1 {
 
 		System.out.println("\n" + Thread.currentThread().getStackTrace()[1] + ":");
 
-		q1 = new Question1(2000, 25);
+		q1p4 = new Question1(2000, 25);
 
 		long startTime = System.currentTimeMillis();
-		Question1.parallelMultiplyMatrix(q1.a, q1.b);
+		Question1.parallelMultiplyMatrix(q1p4.a, q1p4.b);
 		long endTime = System.currentTimeMillis();
 
 		System.out.println("\tParallel method time: " + (endTime - startTime));
@@ -95,10 +95,10 @@ public class TestQuestion1 {
 
 		System.out.println("\n" + Thread.currentThread().getStackTrace()[1] + ":");
 
-		q1 = new Question1(2000, 50);
+		q1p4 = new Question1(2000, 50);
 
 		long startTime = System.currentTimeMillis();
-		Question1.parallelMultiplyMatrix(q1.a, q1.b);
+		Question1.parallelMultiplyMatrix(q1p4.a, q1p4.b);
 		long endTime = System.currentTimeMillis();
 
 		System.out.println("\tParallel method time: " + (endTime - startTime));
@@ -109,10 +109,10 @@ public class TestQuestion1 {
 
 		System.out.println("\n" + Thread.currentThread().getStackTrace()[1] + ":");
 
-		q1 = new Question1(2000, 100);
+		q1p4 = new Question1(2000, 100);
 
 		long startTime = System.currentTimeMillis();
-		Question1.parallelMultiplyMatrix(q1.a, q1.b);
+		Question1.parallelMultiplyMatrix(q1p4.a, q1p4.b);
 		long endTime = System.currentTimeMillis();
 
 		System.out.println("\tParallel method time: " + (endTime - startTime));
@@ -123,10 +123,10 @@ public class TestQuestion1 {
 
 		System.out.println("\n" + Thread.currentThread().getStackTrace()[1] + ":");
 
-		q1 = new Question1(2000, 250);
+		q1p4 = new Question1(2000, 250);
 
 		long startTime = System.currentTimeMillis();
-		Question1.parallelMultiplyMatrix(q1.a, q1.b);
+		Question1.parallelMultiplyMatrix(q1p4.a, q1p4.b);
 		long endTime = System.currentTimeMillis();
 
 		System.out.println("\tParallel method time: " + (endTime - startTime));
@@ -137,10 +137,10 @@ public class TestQuestion1 {
 
 		System.out.println("\n" + Thread.currentThread().getStackTrace()[1] + ":");
 
-		q1 = new Question1(2000, 500);
+		q1p4 = new Question1(2000, 500);
 
 		long startTime = System.currentTimeMillis();
-		Question1.parallelMultiplyMatrix(q1.a, q1.b);
+		Question1.parallelMultiplyMatrix(q1p4.a, q1p4.b);
 		long endTime = System.currentTimeMillis();
 
 		System.out.println("\tParallel method time: " + (endTime - startTime));
@@ -151,10 +151,10 @@ public class TestQuestion1 {
 
 		System.out.println("\n" + Thread.currentThread().getStackTrace()[1] + ":");
 
-		q1 = new Question1(2000, 1000);
+		q1p4 = new Question1(2000, 1000);
 
 		long startTime = System.currentTimeMillis();
-		Question1.parallelMultiplyMatrix(q1.a, q1.b);
+		Question1.parallelMultiplyMatrix(q1p4.a, q1p4.b);
 		long endTime = System.currentTimeMillis();
 
 		System.out.println("\tParallel method time: " + (endTime - startTime));
@@ -165,10 +165,10 @@ public class TestQuestion1 {
 
 		System.out.println("\n" + Thread.currentThread().getStackTrace()[1] + ":");
 
-		q1 = new Question1(2000, 1500);
+		q1p4 = new Question1(2000, 1500);
 
 		long startTime = System.currentTimeMillis();
-		Question1.parallelMultiplyMatrix(q1.a, q1.b);
+		Question1.parallelMultiplyMatrix(q1p4.a, q1p4.b);
 		long endTime = System.currentTimeMillis();
 
 		System.out.println("\tParallel method time: " + (endTime - startTime));
@@ -179,10 +179,10 @@ public class TestQuestion1 {
 
 		System.out.println("\n" + Thread.currentThread().getStackTrace()[1] + ":");
 
-		q1 = new Question1(2000, 2000);
+		q1p4 = new Question1(2000, 2000);
 
 		long startTime = System.currentTimeMillis();
-		Question1.parallelMultiplyMatrix(q1.a, q1.b);
+		Question1.parallelMultiplyMatrix(q1p4.a, q1p4.b);
 		long endTime = System.currentTimeMillis();
 
 		System.out.println("\tParallel method time: " + (endTime - startTime));
