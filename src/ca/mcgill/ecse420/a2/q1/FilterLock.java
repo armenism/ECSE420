@@ -20,6 +20,7 @@ public class FilterLock implements Lock {
 
     public FilterLock(int n) {
 
+        // initialize
         this.n = n;
         level = new AtomicInteger[n];
         victim = new AtomicInteger[n];
@@ -34,14 +35,17 @@ public class FilterLock implements Lock {
     public void lock() {
 
         int threadId = this.getThreadId();
-        for (int i = 1; i < n; i++) {
+        for (int L = 1; L < n; L++) {
 
-            level[threadId].set(i);
-            victim[i].set(threadId);
+            // enter level
+            level[threadId].set(L);
 
-            for (int k = 0; k < n; k++) {
+            // set victim of level as this thread
+            victim[L].set(threadId);
+
+            for (int thread = 0; thread < n; thread++) {
                 //spin wait
-                while ((k != threadId) && (level[k].get() >= i && victim[i].get() == threadId)) ;
+                while ((thread != threadId) && (level[thread].get() >= L && victim[L].get() == threadId)) ;
             }
         }
     }

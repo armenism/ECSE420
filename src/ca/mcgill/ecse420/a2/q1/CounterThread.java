@@ -17,18 +17,24 @@ public class CounterThread implements Runnable {
 
     public CounterThread(int counterLimit, Lock lock) {
 
-        this.counter = 0;
+        // initialize
+        this.counter = 1;
         this.counterLimit = counterLimit;
         this.lock = lock;
     }
 
+    /**
+     * Increments the counter using a locking mechanism for synchronicity
+     *
+     * @return counter
+     */
     private int incrementCounter() {
 
         int temp;
         lock.lock();
 
         try {
-            if (counter >= counterLimit) {
+            if (counter > counterLimit) {
                 return counter;
             }
             System.out.println(this.toString());
@@ -50,6 +56,7 @@ public class CounterThread implements Runnable {
 
         System.out.println("CounterThread " + getThreadId() + " has entered the thread pool");
 
+        // do this until counter is incremented all the way to reach counterLimit
         while (incrementCounter() < counterLimit) ;
 
         System.out.println("CounterThread " + getThreadId() + " has exited the thread pool");

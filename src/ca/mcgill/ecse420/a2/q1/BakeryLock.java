@@ -21,6 +21,7 @@ public class BakeryLock implements Lock {
 
     public BakeryLock(int n) {
 
+        // initialize
         this.n = n;
         flag = new AtomicBoolean[n];
         label = new AtomicInteger[n];
@@ -36,12 +37,18 @@ public class BakeryLock implements Lock {
 
         int threadId = this.getThreadId();
 
+        // express intention and get assigned a number
         flag[threadId].set(true);
         label[threadId].set(maxLabel(label) + 1);
         flag[threadId].set(false);
 
-        for (int p = 0; p < n; ++p) {
+        // go through every thread
+        for (int p = 0; p < n; p++) {
+
+            // choosing
             while (flag[p].get()) ;
+
+            // wait until thread's label becomes lowest in the pool
             while (label[p].get() != 0 && ((label[p].get() < label[threadId].get()) || (label[p].get() == label[threadId].get() && p < threadId)))
                 ;
         }
