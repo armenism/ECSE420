@@ -15,89 +15,90 @@ import java.util.concurrent.locks.Lock;
 
 public class BakeryLock implements Lock {
 
-	private int n;
-	private AtomicBoolean[] flag;
-	private AtomicInteger[] label;
+    private int n;
+    private AtomicBoolean[] flag;
+    private AtomicInteger[] label;
 
-	public BakeryLock(int n) {
+    public BakeryLock(int n) {
 
-		this.n = n;
-		flag = new AtomicBoolean[n];
-		label = new AtomicInteger[n];
+        this.n = n;
+        flag = new AtomicBoolean[n];
+        label = new AtomicInteger[n];
 
-		for (int i = 0; i < n; i++) {
-			flag[i] = new AtomicBoolean();
-			label[i] = new AtomicInteger();
-		}
-	}
+        for (int i = 0; i < n; i++) {
+            flag[i] = new AtomicBoolean();
+            label[i] = new AtomicInteger();
+        }
+    }
 
-	@Override
-	public void lock() {
+    @Override
+    public void lock() {
 
-		int threadId = this.getThreadId();
+        int threadId = this.getThreadId();
 
-		flag[threadId].set(true);
-		label[threadId].set(maxLabel(label) + 1);
-		flag[threadId].set(false);
+        flag[threadId].set(true);
+        label[threadId].set(maxLabel(label) + 1);
+        flag[threadId].set(false);
 
-		for (int p = 0; p < n; ++p) {
-			while (flag[p].get()) ;
-			while (label[p].get() != 0 && ((label[p].get() < label[threadId].get()) || (label[p].get() == label[threadId].get() && p < threadId))) ;
-		}
-	}
+        for (int p = 0; p < n; ++p) {
+            while (flag[p].get()) ;
+            while (label[p].get() != 0 && ((label[p].get() < label[threadId].get()) || (label[p].get() == label[threadId].get() && p < threadId)))
+                ;
+        }
+    }
 
-	@Override
-	public void lockInterruptibly() throws InterruptedException {
+    @Override
+    public void lockInterruptibly() throws InterruptedException {
 
-	}
+    }
 
-	@Override
-	public boolean tryLock() {
-		return false;
-	}
+    @Override
+    public boolean tryLock() {
+        return false;
+    }
 
-	@Override
-	public boolean tryLock(long time, TimeUnit unit) throws InterruptedException {
-		return false;
-	}
+    @Override
+    public boolean tryLock(long time, TimeUnit unit) throws InterruptedException {
+        return false;
+    }
 
-	@Override
-	public void unlock() {
-		int threadId = this.getThreadId();
-		label[threadId].set(0);
-	}
+    @Override
+    public void unlock() {
+        int threadId = this.getThreadId();
+        label[threadId].set(0);
+    }
 
-	@Override
-	public Condition newCondition() {
-		return null;
-	}
+    @Override
+    public Condition newCondition() {
+        return null;
+    }
 
-	/**
-	 * Gets the relative thread ID
-	 *
-	 * @return thread ID
-	 */
-	private int getThreadId() {
-		String threadId = Thread.currentThread().getName();
-		int id = Integer.parseInt(threadId.substring(threadId.lastIndexOf('-') + 1));
+    /**
+     * Gets the relative thread ID
+     *
+     * @return thread ID
+     */
+    private int getThreadId() {
+        String threadId = Thread.currentThread().getName();
+        int id = Integer.parseInt(threadId.substring(threadId.lastIndexOf('-') + 1));
 
-		return threadId.contains("pool") ? id - 1 : id;
-	}
+        return threadId.contains("pool") ? id - 1 : id;
+    }
 
-	/**
-	 * Finds maximum label number within the given array
-	 *
-	 * @param labels array of labels
-	 * @return maximum number in the array
-	 */
-	private int maxLabel(AtomicInteger[] labels) {
-		int max = 0;
+    /**
+     * Finds maximum label number within the given array
+     *
+     * @param labels array of labels
+     * @return maximum number in the array
+     */
+    private int maxLabel(AtomicInteger[] labels) {
+        int max = 0;
 
-		for (AtomicInteger label : labels) {
-			if (label.get() > max) {
-				max = label.get();
-			}
-		}
-		return max;
-	}
+        for (AtomicInteger label : labels) {
+            if (label.get() > max) {
+                max = label.get();
+            }
+        }
+        return max;
+    }
 }

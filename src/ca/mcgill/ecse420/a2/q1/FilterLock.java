@@ -14,73 +14,73 @@ import java.util.concurrent.locks.Lock;
 
 public class FilterLock implements Lock {
 
-	private int n;
-	private AtomicInteger[] level;    // level[i] for thread i
-	private AtomicInteger[] victim;    // victim[L] for level L
+    private int n;
+    private AtomicInteger[] level;    // level[i] for thread i
+    private AtomicInteger[] victim;    // victim[L] for level L
 
-	public FilterLock(int n) {
+    public FilterLock(int n) {
 
-		this.n = n;
-		level = new AtomicInteger[n];
-		victim = new AtomicInteger[n];
+        this.n = n;
+        level = new AtomicInteger[n];
+        victim = new AtomicInteger[n];
 
-		for (int i = 0; i < n; i++) {
-			level[i] = new AtomicInteger();
-			victim[i] = new AtomicInteger();
-		}
-	}
+        for (int i = 0; i < n; i++) {
+            level[i] = new AtomicInteger();
+            victim[i] = new AtomicInteger();
+        }
+    }
 
-	@Override
-	public void lock() {
+    @Override
+    public void lock() {
 
-		int threadId = this.getThreadId();
-		for (int i = 1; i < n; i++) {
+        int threadId = this.getThreadId();
+        for (int i = 1; i < n; i++) {
 
-			level[threadId].set(i);
-			victim[i].set(threadId);
+            level[threadId].set(i);
+            victim[i].set(threadId);
 
-			for (int k = 0; k < n; k++) {
-				//spin wait
-				while ((k != threadId) && (level[k].get() >= i && victim[i].get() == threadId)) ;
-			}
-		}
-	}
+            for (int k = 0; k < n; k++) {
+                //spin wait
+                while ((k != threadId) && (level[k].get() >= i && victim[i].get() == threadId)) ;
+            }
+        }
+    }
 
-	@Override
-	public void lockInterruptibly() throws InterruptedException {
+    @Override
+    public void lockInterruptibly() throws InterruptedException {
 
-	}
+    }
 
-	@Override
-	public boolean tryLock() {
-		return false;
-	}
+    @Override
+    public boolean tryLock() {
+        return false;
+    }
 
-	@Override
-	public boolean tryLock(long time, TimeUnit unit) throws InterruptedException {
-		return false;
-	}
+    @Override
+    public boolean tryLock(long time, TimeUnit unit) throws InterruptedException {
+        return false;
+    }
 
-	@Override
-	public void unlock() {
-		int threadId = this.getThreadId();
-		level[threadId].set(0);
-	}
+    @Override
+    public void unlock() {
+        int threadId = this.getThreadId();
+        level[threadId].set(0);
+    }
 
-	@Override
-	public Condition newCondition() {
-		return null;
-	}
+    @Override
+    public Condition newCondition() {
+        return null;
+    }
 
-	/**
-	 * Gets the relative thread ID
-	 *
-	 * @return thread ID
-	 */
-	private int getThreadId() {
-		String threadId = Thread.currentThread().getName();
-		int id = Integer.parseInt(threadId.substring(threadId.lastIndexOf('-') + 1));
+    /**
+     * Gets the relative thread ID
+     *
+     * @return thread ID
+     */
+    private int getThreadId() {
+        String threadId = Thread.currentThread().getName();
+        int id = Integer.parseInt(threadId.substring(threadId.lastIndexOf('-') + 1));
 
-		return threadId.contains("pool") ? id - 1 : id;
-	}
+        return threadId.contains("pool") ? id - 1 : id;
+    }
 }
