@@ -11,7 +11,7 @@ import java.util.concurrent.ExecutionException;
  * @author Armen Stepanians, ID: 260586139
  * @author Karim El-Baba, ID: 260582332
  *         <p>
- *         This class is an implementation of the sequential matrix multiplication.
+ *         This class is for unit-testing the implemented MM methods.
  **/
 
 public class TestMM {

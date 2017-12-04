@@ -37,7 +37,7 @@ public class Matrix {
     }
 
     double get(int row, int col) {
-        return data[row + rowDisplace][col + colDisplace];
+        return data[row][col];
     }
 
     void set(double value) {
@@ -66,7 +66,6 @@ public class Matrix {
      */
     public void generateMatrix() {
 
-        double[][] generatedMatrix = new double[dim][dim];
         Random random = new Random();
 
         for (int r = 0; r < dim; r++) {

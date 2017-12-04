@@ -9,7 +9,7 @@ import java.util.concurrent.Future;
  * @author Armen Stepanians, ID: 260586139
  * @author Karim El-Baba, ID: 260582332
  *         <p>
- *         This class is an implementation of the sequential matrix multiplication.
+ *         This class is an implementation of the parallel matrix multiplication.
  **/
 
 public class ParallelMM {
