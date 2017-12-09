@@ -16,26 +16,26 @@ public class ParallelMM {
 
     static ExecutorService exec = Executors.newCachedThreadPool();
 
-    public static Matrix add(Matrix a, Matrix b) throws ExecutionException, InterruptedException {
+    public static Vector add(Vector a, Vector b) throws ExecutionException, InterruptedException {
         int n = a.getDim();
-        Matrix c = new Matrix(n);
+        Vector c = new Vector(n);
         Future<?> future = exec.submit(new AddTask(a, b, c));
         future.get();
         return c;
     }
 
-    public static Matrix multiply(Matrix a, Matrix b) throws ExecutionException, InterruptedException {
+    public static Vector multiply(Matrix a, Vector b) throws ExecutionException, InterruptedException {
         int n = a.getDim();
-        Matrix c = new Matrix(n);
+        Vector c = new Vector(n);
         Future<?> future = exec.submit(new MulTask(a, b, c));
         future.get();
         return c;
     }
 
     static class AddTask implements Runnable {
-        Matrix a, b, c;
+        Vector a, b, c;
 
-        public AddTask(Matrix myA, Matrix myB, Matrix myC) {
+        public AddTask(Vector myA, Vector myB, Vector myC) {
             a = myA;
             b = myB;
             c = myC;
@@ -49,18 +49,18 @@ public class ParallelMM {
                     c.set(a.get() + b.get());
                 } else {
 
-                    Matrix[][] aa = a.split(), bb = b.split(), cc = c.split();
-                    Future<?>[][] future = (Future<?>[][]) new Future[2][2];
+                    Vector[] aa = a.split(), bb = b.split(), cc = c.split();
+                    Future<?>[] future = (Future<?>[]) new Future[2];
 
                     for (int i = 0; i < 2; i++) {
-                        for (int j = 0; j < 2; j++) {
-                            future[i][j] = exec.submit(new AddTask(aa[i][j], bb[i][j], cc[i][j]));
-                        }
+                        //for (int j = 0; j < 2; j++) {
+                            future[i] = exec.submit(new AddTask(aa[i], bb[i], cc[i]));
+                        //}
                     }
                     for (int i = 0; i < 2; i++) {
-                        for (int j = 0; j < 2; j++) {
-                            future[i][j].get();
-                        }
+                        //for (int j = 0; j < 2; j++) {
+                            future[i].get();
+                        //}
                     }
 
                 }
@@ -71,14 +71,15 @@ public class ParallelMM {
     }
 
     static class MulTask implements Runnable {
-        Matrix a, b, c, lhs, rhs;
+        Matrix a;
+        Vector b, c, lhs, rhs;
 
-        public MulTask(Matrix myA, Matrix myB, Matrix myC) {
+        public MulTask(Matrix myA, Vector myB, Vector myC) {
             a = myA;
             b = myB;
             c = myC;
-            lhs = new Matrix(a.getDim());
-            rhs = new Matrix(a.getDim());
+            lhs = new Vector(b.getDim());
+            rhs = new Vector(b.getDim());
         }
 
         public void run() {
@@ -88,14 +89,15 @@ public class ParallelMM {
 
                 } else {
 
-                    Matrix[][] aa = a.split(), bb = b.split();
-                    Matrix[][] ll = lhs.split(), rr = rhs.split();
+                    Matrix[][] aa = a.split();
+                    Vector[] bb = b.split();
+                    Vector[] ll = lhs.split(), rr = rhs.split();
                     Future<?>[][][] future = (Future<?>[][][]) new Future[2][2][2];
 
                     for (int i = 0; i < 2; i++) {
                         for (int j = 0; j < 2; j++) {
-                            future[i][j][0] = exec.submit(new MulTask(aa[j][0], bb[0][i], ll[j][i]));
-                            future[i][j][1] = exec.submit(new MulTask(aa[j][1], bb[1][i], rr[j][i]));
+                            future[i][j][0] = exec.submit(new MulTask(aa[j][0], bb[0], ll[j]));
+                            future[i][j][1] = exec.submit(new MulTask(aa[j][1], bb[1], rr[j]));
                         }
                     }
 
