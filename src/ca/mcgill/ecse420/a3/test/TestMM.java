@@ -23,9 +23,9 @@ public class TestMM {
 
     @BeforeClass
     public static void generateMatrices() {
-        A = new Matrix(3);
-        B = new Vector(3);
-        C = new Vector(3);
+        A = new Matrix(2048);
+        B = new Vector(2048);
+        C = new Vector(128);
     }
 
     @Test
@@ -34,8 +34,8 @@ public class TestMM {
         A.generateMatrix();
         B.generateVector();
 
-        printMatrix(A);
-        printVector(B);
+        //printMatrix(A);
+        //printVector(B);
 
         try {
             Vector c = ParallelMM.multiply(A, B);
@@ -74,9 +74,9 @@ public class TestMM {
     }
 
     private void printVector(Vector vector) {
-        for (double num: vector.getVector()) {
-                System.out.println((int)num);
-            }
+        for (int i = 0; i < vector.getVector().length; i++) {
+            System.out.println(i + ". " + vector.getVector()[i]);
+        }
         System.out.println();
     }
 }

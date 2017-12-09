@@ -21,7 +21,7 @@ public class Vector {
         vector = new double[d];
     }
 
-    private Vector(double[] v, int x, int d) {
+    public Vector(double[] v, int x, int d) {
         vector = v;
         rowDisplace = x;
         dim = d;
@@ -40,7 +40,7 @@ public class Vector {
     }
 
     void set(double value) {
-        vector[rowDisplace] = value;
+        vector[rowDisplace] += value;
     }
 
     Vector[] split() {

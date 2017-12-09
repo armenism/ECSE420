@@ -21,7 +21,7 @@ public class Matrix {
         data = new double[d][d];
     }
 
-    private Matrix(double[][] matrix, int x, int y, int d) {
+    public Matrix(double[][] matrix, int x, int y, int d) {
         data = matrix;
         rowDisplace = x;
         colDisplace = y;

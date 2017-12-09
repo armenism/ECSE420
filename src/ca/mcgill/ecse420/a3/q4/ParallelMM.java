@@ -1,9 +1,6 @@
 package ca.mcgill.ecse420.a3.q4;
 
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 /**
  * @author Armen Stepanians, ID: 260586139
@@ -14,21 +11,41 @@ import java.util.concurrent.Future;
 
 public class ParallelMM {
 
+    static private final int MAX_DIM = 16;
     static ExecutorService exec = Executors.newCachedThreadPool();
 
     public static Vector add(Vector a, Vector b) throws ExecutionException, InterruptedException {
+        ExecutorService exec = Executors.newCachedThreadPool();
         int n = a.getDim();
         Vector c = new Vector(n);
         Future<?> future = exec.submit(new AddTask(a, b, c));
         future.get();
+        exec.shutdown();
+        while (!exec.isTerminated()) ;
         return c;
     }
 
     public static Vector multiply(Matrix a, Vector b) throws ExecutionException, InterruptedException {
         int n = a.getDim();
         Vector c = new Vector(n);
-        Future<?> future = exec.submit(new MulTask(a, b, c));
-        future.get();
+
+        for (int i = 0; i < a.getDim() / MAX_DIM; i++) {
+            for (int j = 0; j < a.getDim() / MAX_DIM; j++) {
+
+                ExecutorService exec = Executors.newCachedThreadPool();
+
+                Future<?> future = exec.submit(new MulTask(
+                        new Matrix(a.getData(), i * MAX_DIM, j * MAX_DIM, MAX_DIM),
+                        new Vector(b.getVector(), j * MAX_DIM, MAX_DIM),
+                        new Vector(c.getVector(), j * MAX_DIM, MAX_DIM)));
+                future.get();
+                exec.shutdown();
+                while (!exec.isTerminated()) ;
+            }
+        }
+
+        //Future<?> future = exec.submit(new MulTask(a, b, c));
+        //future.get();
         return c;
     }
 
@@ -53,14 +70,10 @@ public class ParallelMM {
                     Future<?>[] future = (Future<?>[]) new Future[2];
 
                     for (int i = 0; i < 2; i++) {
-                        //for (int j = 0; j < 2; j++) {
-                            future[i] = exec.submit(new AddTask(aa[i], bb[i], cc[i]));
-                        //}
+                        future[i] = exec.submit(new AddTask(aa[i], bb[i], cc[i]));
                     }
                     for (int i = 0; i < 2; i++) {
-                        //for (int j = 0; j < 2; j++) {
-                            future[i].get();
-                        //}
+                        future[i].get();
                     }
 
                 }
@@ -86,30 +99,27 @@ public class ParallelMM {
             try {
                 if (a.getDim() == 1) {
                     c.set(a.get() * b.get());
-
                 } else {
 
                     Matrix[][] aa = a.split();
                     Vector[] bb = b.split();
                     Vector[] ll = lhs.split(), rr = rhs.split();
-                    Future<?>[][][] future = (Future<?>[][][]) new Future[2][2][2];
+                    Future<?>[][] future = (Future<?>[][]) new Future[2][2];
 
                     for (int i = 0; i < 2; i++) {
                         for (int j = 0; j < 2; j++) {
-                            future[i][j][0] = exec.submit(new MulTask(aa[j][0], bb[0], ll[j]));
-                            future[i][j][1] = exec.submit(new MulTask(aa[j][1], bb[1], rr[j]));
+                            future[i][0] = exec.submit(new MulTask(aa[j][0], bb[0], ll[j]));
+                            future[i][1] = exec.submit(new MulTask(aa[j][1], bb[1], rr[j]));
                         }
                     }
 
                     for (int i = 0; i < 2; i++)
-                        for (int j = 0; j < 2; j++)
-                            for (int k = 0; k < 2; k++)
-                                future[i][j][k].get();
+                        for (int k = 0; k < 2; k++)
+                            future[i][k].get();
 
                     Future<?> done = exec.submit(new AddTask(lhs, rhs, c));
                     done.get();
                 }
-
 
             } catch (Exception ex) {
                 ex.printStackTrace();
