@@ -2,13 +2,16 @@
 package ca.mcgill.ecse420.a3.q3;
 
 import java.lang.reflect.Array;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class BoundedLockBasedQueue<T> {
 
     private T[] itemArray; //Array based queue
     private AtomicInteger head; //Head index
     private AtomicInteger tail; //Tail index
-    private AtomicInteger size; //Size queue
+    private AtomicInteger enqSize; //Size queue
+    private AtomicInteger deqSize; //Size queue
+
 
 
     public BoundedLockBasedQueue(int capacity) {

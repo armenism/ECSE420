@@ -1,10 +1,11 @@
 
 package ca.mcgill.ecse420.a3.q3;
-
 import java.lang.reflect.Array;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.atomic.AtomicInteger;
+
 
 public class BoundedLockBasedQueue<T> {
 
