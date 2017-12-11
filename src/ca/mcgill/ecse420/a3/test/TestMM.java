@@ -29,9 +29,9 @@ public class TestMM {
 
     @BeforeClass
     public static void generateMatrices() {
-        A = new Matrix(4);
-        B = new Vector(4);
-        C = new Vector(4);
+        A = new Matrix(2000);
+        B = new Vector(2000);
+        C = new Vector(10);
     }
 
     @Test
