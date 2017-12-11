@@ -70,7 +70,7 @@ public class Matrix {
 
         for (int r = 0; r < dim; r++) {
             for (int c = 0; c < dim; c++) {
-                data[r][c] = random.nextInt(3);
+                data[r][c] = random.nextInt(10);
             }
         }
     }

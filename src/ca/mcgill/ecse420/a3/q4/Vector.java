@@ -6,7 +6,7 @@ import java.util.Random;
  * @author Armen Stepanians, ID: 260586139
  * @author Karim El-Baba, ID: 260582332
  *         <p>
- *         This class is an implementation of a matrix
+ *         This class is an implementation of a vector
  **/
 
 public class Vector {
@@ -39,8 +39,16 @@ public class Vector {
         return vector[rowDisplace];
     }
 
+    double get(int row) {
+        return vector[row];
+    }
+
     void set(double value) {
-        vector[rowDisplace] += value;
+        vector[rowDisplace] = value;
+    }
+
+    void set(double value, int row) {
+        vector[row] = value;
     }
 
     Vector[] split() {
@@ -64,7 +72,7 @@ public class Vector {
 
         for (int r = 0; r < dim; r++) {
             for (int c = 0; c < dim; c++) {
-                vector[c] = random.nextInt(3) + 1;
+                vector[c] = random.nextInt(10);
             }
         }
     }

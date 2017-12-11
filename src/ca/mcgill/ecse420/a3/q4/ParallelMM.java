@@ -11,41 +11,21 @@ import java.util.concurrent.*;
 
 public class ParallelMM {
 
-    static private final int MAX_DIM = 16;
     static ExecutorService exec = Executors.newCachedThreadPool();
 
     public static Vector add(Vector a, Vector b) throws ExecutionException, InterruptedException {
-        ExecutorService exec = Executors.newCachedThreadPool();
         int n = a.getDim();
         Vector c = new Vector(n);
         Future<?> future = exec.submit(new AddTask(a, b, c));
         future.get();
-        exec.shutdown();
-        while (!exec.isTerminated()) ;
         return c;
     }
 
     public static Vector multiply(Matrix a, Vector b) throws ExecutionException, InterruptedException {
         int n = a.getDim();
         Vector c = new Vector(n);
-
-        for (int i = 0; i < a.getDim() / MAX_DIM; i++) {
-            for (int j = 0; j < a.getDim() / MAX_DIM; j++) {
-
-                ExecutorService exec = Executors.newCachedThreadPool();
-
-                Future<?> future = exec.submit(new MulTask(
-                        new Matrix(a.getData(), i * MAX_DIM, j * MAX_DIM, MAX_DIM),
-                        new Vector(b.getVector(), j * MAX_DIM, MAX_DIM),
-                        new Vector(c.getVector(), j * MAX_DIM, MAX_DIM)));
-                future.get();
-                exec.shutdown();
-                while (!exec.isTerminated()) ;
-            }
-        }
-
-        //Future<?> future = exec.submit(new MulTask(a, b, c));
-        //future.get();
+        Future<?> future = exec.submit(new MulTask(a, b, c));
+        future.get();
         return c;
     }
 
